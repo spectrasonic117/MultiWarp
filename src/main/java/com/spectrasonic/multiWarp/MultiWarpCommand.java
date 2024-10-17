@@ -5,10 +5,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.ChatColor;
 
 import java.util.List;
 
 public class MultiWarpCommand implements CommandExecutor {
+    private static final String prefix = ChatColor.AQUA + "[" + ChatColor.RED + "MultiWarp" + ChatColor.AQUA + "]" + ChatColor.RESET + " ";
+    private static final String UsagePrefix = ChatColor.GREEN + "Usage:" + ChatColor.BLUE + "/multiwarp" + ChatColor.YELLOW + " ";
 
     private final MultiWarp plugin;
 
@@ -18,15 +21,13 @@ public class MultiWarpCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage("This command can only be run by players.");
+        if (!(sender instanceof Player player)) {
+            sender.sendMessage(prefix + ChatColor.RED + "This command can only be run by players.");
             return false;
         }
 
-        Player player = (Player) sender;
-
         if (args.length == 0) {
-            player.sendMessage("Usage: /multiwarp <create|add|delete|deletegroup|tp|version|reload>");
+            player.sendMessage(prefix + UsagePrefix + "<create|add|delete|deletegroup|tp|version|reload>");
             return false;
         }
 
@@ -38,9 +39,9 @@ public class MultiWarpCommand implements CommandExecutor {
                     String groupName = args[1];
                     Location loc = player.getLocation();
                     plugin.getWarpManager().createWarpGroup(groupName, loc);
-                    player.sendMessage("Warp group " + groupName + " created with the first point.");
+                    player.sendMessage(prefix + UsagePrefix + "created with the first point.");
                 } else {
-                    player.sendMessage("Usage: /multiwarp create <group>");
+                    player.sendMessage(prefix + UsagePrefix + "create <group>");
                 }
                 break;
 
@@ -49,9 +50,9 @@ public class MultiWarpCommand implements CommandExecutor {
                     String groupName = args[1];
                     Location loc = player.getLocation();
                     plugin.getWarpManager().addWarpToGroup(groupName, loc);
-                    player.sendMessage("Added a new warp point to group " + groupName);
+                    player.sendMessage(prefix + ChatColor.YELLOW + "Added a new warp point to group " + ChatColor.GREEN + groupName);
                 } else {
-                    player.sendMessage("Usage: /multiwarp add <group>");
+                    player.sendMessage(prefix + UsagePrefix + "add <group>");
                 }
                 break;
 
@@ -61,15 +62,15 @@ public class MultiWarpCommand implements CommandExecutor {
                     try {
                         int index = Integer.parseInt(args[2]);
                         if (plugin.getWarpManager().deleteWarp(groupName, index)) {
-                            player.sendMessage("Warp point " + index + " deleted from group " + groupName);
+                            player.sendMessage(prefix + ChatColor.RED + "Warp point " + index + " deleted from group " + ChatColor.YELLOW + groupName);
                         } else {
-                            player.sendMessage("Failed to delete warp point.");
+                            player.sendMessage(prefix + ChatColor.RED + "Failed to delete warp point.");
                         }
                     } catch (NumberFormatException e) {
-                        player.sendMessage("The warp index must be a number.");
+                        player.sendMessage(prefix + ChatColor.YELLOW + "The warp index must be a number.");
                     }
                 } else {
-                    player.sendMessage("Usage: /multiwarp delete <group> <index>");
+                    player.sendMessage(prefix + UsagePrefix + "delete <group> <index>");
                 }
                 break;
 
@@ -77,12 +78,12 @@ public class MultiWarpCommand implements CommandExecutor {
                 if (args.length == 2) {
                     String groupName = args[1];
                     if (plugin.getWarpManager().deleteWarpGroup(groupName)) {
-                        player.sendMessage("Warp group " + groupName + " has been deleted.");
+                        player.sendMessage(prefix + ChatColor.YELLOW + groupName + ChatColor.RED + " has been deleted.");
                     } else {
-                        player.sendMessage("Failed to delete warp group " + groupName);
+                        player.sendMessage(prefix + ChatColor.RED + "Failed to delete warp group " + ChatColor.YELLOW +  groupName);
                     }
                 } else {
-                    player.sendMessage("Usage: /multiwarp deletegroup <group>");
+                    player.sendMessage(prefix + UsagePrefix + "deletegroup <group>");
                 }
                 break;
 
@@ -91,23 +92,27 @@ public class MultiWarpCommand implements CommandExecutor {
                     String groupName = args[1];
                     List<Player> players = (List<Player>) player.getWorld().getPlayers();
                     plugin.getWarpManager().teleportPlayersToGroup(players, groupName);
-                    player.sendMessage("Teleported all players to warps in group " + groupName);
+                    player.sendMessage(prefix +ChatColor.GREEN + "Teleported all players to warps in group " + ChatColor.YELLOW + groupName);
                 } else {
-                    player.sendMessage("Usage: /multiwarp tp <group>");
+                    player.sendMessage(prefix + UsagePrefix + "tp <group>");
                 }
                 break;
 
             case "reload":
                 plugin.reloadPlugin();
-                player.sendMessage("MultiWarp plugin reloaded.");
+                player.sendMessage(prefix + ChatColor.GREEN + "MultiWarp plugin reloaded.");
                 break;
 
             case "version":
-                player.sendMessage("MultiWarp Plugin version 1.0");
+                String pluginVersion = plugin.getDescription().getVersion();
+                String pluginAuthor = String.valueOf(plugin.getDescription().getAuthors());
+
+                player.sendMessage(prefix + ChatColor.YELLOW + "MultiWarp Version: " + ChatColor.LIGHT_PURPLE + pluginVersion);
+                player.sendMessage(prefix + ChatColor.YELLOW + "Developed by:" + ChatColor.RED + pluginAuthor);
                 break;
 
             default:
-                player.sendMessage("Unknown command. Usage: /multiwarp <create|add|delete|deletegroup|tp|version|reload>");
+                player.sendMessage(prefix + ChatColor.RED + "Unknown command." + UsagePrefix + "<create|add|delete|deletegroup|tp|version|reload>");
                 break;
         }
 

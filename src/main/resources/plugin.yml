@@ -1,7 +1,8 @@
 name: MultiWarp
-version: '1.0.1'
+version: '1.0.3'
 main: com.spectrasonic.multiWarp.MultiWarp
 api-version: '1.21'
+author: Spectrasonic
 commands:
   multiwarp:
     description: Manages warp groups and points

@@ -1,0 +1,34 @@
+name: MultiWarp
+version: '1.0.1'
+main: com.spectrasonic.multiWarp.MultiWarp
+api-version: '1.21'
+commands:
+  multiwarp:
+    description: Manages warp groups and points
+    aliases: [mw]
+    usage: /multiwarp <create|add|delete|tp|version>
+permissions:
+  multiwarp.*:
+    description: Gives access to all MultiWarp commands
+    children:
+      multiwarp.create: true
+      multiwarp.add: true
+      multiwarp.delete: true
+      multiwarp.tp: true
+      multiwarp.version: true
+    default: op
+  multiwarp.create:
+    description: Allows creating warp groups
+    default: op
+  multiwarp.add:
+    description: Allows adding warp points to warp groups
+    default: op
+  multiwarp.delete:
+    description: Allows deleting warp points from warp groups
+    default: op
+  multiwarp.tp:
+    description: Allows teleporting players to warp points
+    default: op
+  multiwarp.version:
+    description: Allows viewing the plugin version
+    default: op

@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.ChatColor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MultiWarpCommand implements CommandExecutor {
     private static final String prefix = ChatColor.AQUA + "[" + ChatColor.RED + "MultiWarp" + ChatColor.AQUA + "]" + ChatColor.RESET + " ";
@@ -90,11 +91,19 @@ public class MultiWarpCommand implements CommandExecutor {
             case "tp":
                 if (args.length == 2) {
                     String groupName = args[1];
-                    List<Player> players = (List<Player>) player.getWorld().getPlayers();
-                    plugin.getWarpManager().teleportPlayersToGroup(players, groupName);
-                    player.sendMessage(prefix +ChatColor.GREEN + "Teleported all players to warps in group " + ChatColor.YELLOW + groupName);
+
+                    List<Player> playersToTeleport = player.getWorld().getPlayers().stream()
+                            .filter(p -> !p.hasPermission("multiwarp.teleport.bypass"))
+                            .collect(Collectors.toList());
+
+                    if (playersToTeleport.isEmpty()) {
+                        player.sendMessage(prefix + ChatColor.RED + "No players available for teleportation.");
+                    } else {
+                        plugin.getWarpManager().teleportPlayersToGroup(playersToTeleport, groupName);
+                        player.sendMessage(prefix + ChatColor.GREEN + "Teleported players without bypass permission to warps in group " + groupName);
+                    }
                 } else {
-                    player.sendMessage(prefix + UsagePrefix + "tp <group>");
+                    player.sendMessage("Usage: /multiwarp tp <group>");
                 }
                 break;
 

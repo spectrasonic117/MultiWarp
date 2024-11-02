@@ -1,5 +1,5 @@
 name: MultiWarp
-version: '1.0.3 - 1.20.4'
+version: '1.0.4 - 1.20.4'
 main: com.spectrasonic.multiWarp.MultiWarp
 api-version: '1.20'
 author: Spectrasonic
@@ -9,6 +9,9 @@ commands:
     aliases: [mw]
     usage: /multiwarp <create|add|delete|tp|version>
 permissions:
+  multiwarp.teleport.bypass:
+    description: Allows players to bypass teleportation in warp groups.
+    default: false
   multiwarp.*:
     description: Gives access to all MultiWarp commands
     children:

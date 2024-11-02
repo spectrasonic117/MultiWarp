@@ -1,5 +1,7 @@
-package com.spectrasonic.multiWarp;
+package com.spectrasonic.multiWarp.manager;
 
+import com.spectrasonic.multiWarp.Main;
+import com.spectrasonic.multiWarp.Utils.MessageUtils;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -10,10 +12,10 @@ import java.util.*;
 
 public class WarpManager {
 
-    private final MultiWarp plugin;
+    private final Main plugin;
     private final Map<String, List<Location>> warps;  // Warp groups with list of warps
 
-    public WarpManager(MultiWarp plugin) {
+    public WarpManager(Main plugin) {
         this.plugin = plugin;
         this.warps = new HashMap<>();
         loadAllWarps();
@@ -94,7 +96,7 @@ public class WarpManager {
         try {
             config.save(file);
         } catch (IOException e) {
-            plugin.getLogger().severe("Failed to save warps for group " + groupName);
+            MessageUtils.sendMessage(plugin.getServer().getConsoleSender(), "&cFailed to save warps for group " + groupName);
         }
     }
 

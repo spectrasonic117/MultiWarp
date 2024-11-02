@@ -1,6 +1,6 @@
 name: MultiWarp
-version: '1.0.4'
-main: com.spectrasonic.multiWarp.MultiWarp
+version: '1.0.5'
+main: com.spectrasonic.multiWarp.Main
 api-version: '1.21'
 author: Spectrasonic
 commands:

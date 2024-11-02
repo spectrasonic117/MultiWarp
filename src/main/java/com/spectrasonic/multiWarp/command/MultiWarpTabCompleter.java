@@ -1,5 +1,6 @@
-package com.spectrasonic.multiWarp;
+package com.spectrasonic.multiWarp.command;
 
+import com.spectrasonic.multiWarp.Main;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -11,9 +12,9 @@ import java.util.List;
 
 public class MultiWarpTabCompleter implements TabCompleter {
 
-    private final MultiWarp plugin;
+    private final Main plugin;
 
-    public MultiWarpTabCompleter(MultiWarp plugin) {
+    public MultiWarpTabCompleter(Main plugin) {
         this.plugin = plugin;
     }
 

@@ -1,11 +1,11 @@
 name: MultiWarp
-version: '1.0.5'
+version: '1.0.5-SNAPSHOT'
 main: com.spectrasonic.multiWarp.Main
 api-version: '1.21'
 author: Spectrasonic
 commands:
   multiwarp:
-    description: Manages warp groups and points
+    description: Manages warp groups and teleport points
     aliases: [mw]
     usage: /multiwarp <create|add|delete|tp|version>
 permissions:

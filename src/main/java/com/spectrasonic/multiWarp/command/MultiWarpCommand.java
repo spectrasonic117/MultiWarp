@@ -7,11 +7,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.ChatColor;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("NullableProblems")
 public class MultiWarpCommand implements CommandExecutor {
 
     private final Main plugin;
@@ -40,7 +40,7 @@ public class MultiWarpCommand implements CommandExecutor {
                     String groupName = args[1];
                     Location loc = player.getLocation();
                     plugin.getWarpManager().createWarpGroup(groupName, loc);
-                    MessageUtils.sendMessage(sender, "&aCreated warp group &b" + groupName);
+                    MessageUtils.sendMessage(sender, "&aCreated multiwarp group &b" + groupName);
                 } else {
                     MessageUtils.sendMessage(sender, "&cUsage: /multiwarp create <group>");
                 }
@@ -116,8 +116,8 @@ public class MultiWarpCommand implements CommandExecutor {
                 String pluginVersion = plugin.getDescription().getVersion();
                 String pluginAuthor = String.valueOf(plugin.getDescription().getAuthors());
 
-                MessageUtils.sendMessage(sender, "&aMultiWarp Version: " + ChatColor.LIGHT_PURPLE + pluginVersion);
-                MessageUtils.sendMessage(sender, "&aDeveloped by:" + ChatColor.RED + pluginAuthor);
+                MessageUtils.sendMessage(sender, "MultiWarp Version: &d" + pluginVersion);
+                MessageUtils.sendMessage(sender, "Developed by: &c" + pluginAuthor);
                 break;
 
             default:

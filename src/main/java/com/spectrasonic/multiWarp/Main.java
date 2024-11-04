@@ -4,7 +4,6 @@ import com.spectrasonic.multiWarp.Utils.MessageUtils;
 import com.spectrasonic.multiWarp.command.MultiWarpCommand;
 import com.spectrasonic.multiWarp.command.MultiWarpTabCompleter;
 import com.spectrasonic.multiWarp.manager.WarpManager;
-import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.util.Objects;
@@ -14,10 +13,8 @@ public class Main extends JavaPlugin {
 
     private WarpManager warpManager;
 
-    private static final String divider = "------------------------------";
-    private static final String prefix = ChatColor.AQUA + "[" + ChatColor.RED + "MultiWarp" + ChatColor.AQUA + "]" + ChatColor.RESET + " ";
-    private final String version = getDescription().getVersion();
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Override
     public void onEnable() {
         // Initialize WarpManager
